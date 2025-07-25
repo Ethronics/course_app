@@ -1,15 +1,8 @@
-# app.py  —  Ethronics Summer 2025 course dashboard
 import base64, json
 from pathlib import Path
 import streamlit as st
 
 
-
-
-# ────────────────────────────────────────────────────────────────────────────────
-# CONFIG
-# ────────────────────────────────────────────────────────────────────────────────
-# ——— config ———
 ICON_FILE = Path("assets/ethronics_icon.png")   # <‑ your PNG
 st.set_page_config(
     page_title="Ethronics Summer 2025",
@@ -27,9 +20,7 @@ def _icon_img_tag(height=40):
 DATA_PATH = Path("data/courses.json")
 UTF8 = {"encoding": "utf-8"}
 
-# ────────────────────────────────────────────────────────────────────────────────
-# HELPERS
-# ────────────────────────────────────────────────────────────────────────────────
+
 def load_data():
     if DATA_PATH.exists():
         return json.loads(DATA_PATH.read_text(**UTF8))
@@ -37,6 +28,27 @@ def load_data():
 
 def save_data(d):
     DATA_PATH.write_text(json.dumps(d, indent=2, ensure_ascii=False), **UTF8)
+
+# def ethronics_header():
+#     st.markdown(
+#         f"""
+#         <div style="
+#             background:linear-gradient(90deg,#004d7a,#008793,#00bf72,#a8eb12);
+#             padding:1.2rem 1rem;border-radius:0.4rem;margin-bottom:1.2rem;
+#             box-shadow:0 2px 10px rgba(0,0,0,0.1);
+#             display:flex;align-items:center;gap:0.8rem;">
+#             {_icon_img_tag()}
+#             <div>
+#                 <h1 style="color:white;margin:0;">Ethronics Summer 2025</h1>
+#                 <p style="color:white;margin:0;font-size:0.95rem;">
+#                   Pushing the boundaries of technology through
+#                   groundbreaking research and development
+#                 </p>
+#             </div>
+#         </div>
+#         """,
+#         unsafe_allow_html=True,
+#     )
 
 def ethronics_header():
     st.markdown(
@@ -66,16 +78,11 @@ def ethronics_footer():
         unsafe_allow_html=True,
     )
 
-# load once
 data = load_data()
 
-# initialize session state
 for k, v in [("page", "home"), ("group", None), ("course", None)]:
     st.session_state.setdefault(k, v)
 
-# ────────────────────────────────────────────────────────────────────────────────
-# HOME  ─── select GROUP
-# ────────────────────────────────────────────────────────────────────────────────
 if st.session_state.page == "home":
     ethronics_header()
     st.subheader("Select your group")
@@ -87,9 +94,7 @@ if st.session_state.page == "home":
             st.rerun()
     ethronics_footer()
 
-# ────────────────────────────────────────────────────────────────────────────────
-# COURSES  ─── select COURSE inside chosen group
-# ────────────────────────────────────────────────────────────────────────────────
+
 elif st.session_state.page == "courses":
     ethronics_header()
     if st.button("← Back to groups"):
@@ -106,9 +111,7 @@ elif st.session_state.page == "courses":
             st.rerun()
     ethronics_footer()
 
-# ────────────────────────────────────────────────────────────────────────────────
-# COURSE  ─── description, weeks, (optional) edit mode
-# ────────────────────────────────────────────────────────────────────────────────
+
 else:
     ethronics_header()
     grp, course = st.session_state.group, st.session_state.course
@@ -118,7 +121,6 @@ else:
     st.subheader(f"{course}  ·  {grp}")
     st.markdown(f"**Description**: {course_dict.get('Description','*(no description)*')}")
 
-    # ── passkey gate ───────────────────────────────────────────────────────────
     auth_key = f"auth_{grp}_{course}"
     if not st.session_state.get(auth_key, False):
         with st.expander("Instructor login to edit"):
@@ -132,7 +134,6 @@ else:
 
     can_edit = st.session_state.get(auth_key, False)
 
-    # ── render weeks ───────────────────────────────────────────────────────────
     week_keys = [k for k in course_dict if k.lower().startswith("week")]
     week_keys.sort(key=lambda w: int(w.split()[1]))
     for wk in week_keys:
