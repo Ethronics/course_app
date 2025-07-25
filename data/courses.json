@@ -1,0 +1,92 @@
+{
+  "EG1": {
+    "DM101": {
+      "Description": "Introductory data science and machine learning for high‑school students.",
+      "Week 1": {
+        "content": "### Week 1 overview\n\nThis week introduces the course and sets up the required software.\n\n```python\nprint(\"Hello Ethronics\")\n```",
+        "assessment": "1. What problem are you most excited to solve with this course?\n2. Run the setup notebook and upload a screenshot."
+      }
+    },
+    "EE102": {
+      "Description": "Fundamentals of electrical and electronic engineering.",
+      "Week 1": {
+        "content": "### Week 1 overview\n\nThis week introduces the course and sets up the required software.\n\n```python\nprint(\"Hello Ethronics\")\n```",
+        "assessment": "1. What problem are you most excited to solve with this course?\n2. Run the setup notebook and upload a screenshot."
+      }
+    },
+    "RM101": {
+      "Description": "Robotics and embedded systems for absolute beginners.",
+      "Week 1": {
+        "content": "### Week 1 overview\n\nThis week introduces the course and sets up the required software.\n\n```python\nprint(\"Hello Ethronics\")\n```",
+        "assessment": "1. What problem are you most excited to solve with this course?\n2. Run the setup notebook and upload a screenshot."
+      }
+    },
+    "PY201": {
+      "Description": "Python for juniors with an emphasis on projects.",
+      "Week 1": {
+        "content": "### Week 1 overview\n\nThis week introduces the course and sets up the required software.\n\n```python\nprint(\"Hello Ethronics\")\n```",
+        "assessment": "1. What problem are you most excited to solve with this course?\n2. Run the setup notebook and upload a screenshot."
+      }
+    }
+  },
+  "EG3": {
+    "EE101": {
+      "Description": "Electrical and electronic engineering – core principles.",
+      "Week 1": {
+        "content": "### Week 1 overview\n\nThis week introduces the course and sets up the required software.\n\n```python\nprint(\"Hello Ethronics\")\n```",
+        "assessment": "1. What problem are you most excited to solve with this course?\n2. Run the setup notebook and upload a screenshot."
+      }
+    },
+    "ES101": {
+      "Description": "General engineering science for first‑year students.",
+      "Week 1": {
+        "content": "### Week 1 overview\n\nThis week introduces the course and sets up the required software.\n\n```python\nprint(\"Hello Ethronics\")\n```",
+        "assessment": "1. What problem are you most excited to solve with this course?\n2. Run the setup notebook and upload a screenshot."
+      }
+    },
+    "PY101": {
+      "Description": "Python from scratch for engineers.",
+      "Week 1": {
+        "content": "### Week 1 overview\n\nThis week introduces the course and sets up the required software.\n\n```python\nprint(\"Hello Ethronics\")\n```",
+        "assessment": "1. What problem are you most excited to solve with this course?\n2. Run the setup notebook and upload a screenshot."
+      }
+    },
+    "RO101": {
+      "Description": "Robotics and AI foundations.",
+      "Week 1": {
+        "content": "### Week 1 overview\n\nThis week introduces the course and sets up the required software.\n\n```python\nprint(\"Hello Ethronics\")\n```",
+        "assessment": "1. What problem are you most excited to solve with this course?\n2. Run the setup notebook and upload a screenshot."
+      }
+    }
+  },
+  "EG4": {
+    "EE101": {
+      "Description": "Electrical and electronic engineering – core principles.",
+      "Week 1": {
+        "content": "### Week 1 overview\n\nThis week introduces the course and sets up the required software.\n\n```python\nprint(\"Hello Ethronics\")\n```",
+        "assessment": "1. What problem are you most excited to solve with this course?\n2. Run the setup notebook and upload a screenshot."
+      }
+    },
+    "ES101": {
+      "Description": "General engineering science for first‑year students.",
+      "Week 1": {
+        "content": "### Week 1 overview\n\nThis week introduces the course and sets up the required software.\n\n```python\nprint(\"Hello Ethronics\")\n```",
+        "assessment": "1. What problem are you most excited to solve with this course?\n2. Run the setup notebook and upload a screenshot."
+      }
+    },
+    "PY101": {
+      "Description": "Python from scratch for engineers.",
+      "Week 1": {
+        "content": "### Week 1 overview\n\nThis week introduces the course and sets up the required software.\n\n```python\nprint(\"Hello Ethronics\")\n```",
+        "assessment": "1. What problem are you most excited to solve with this course?\n2. Run the setup notebook and upload a screenshot."
+      }
+    },
+    "RO101": {
+      "Description": "Robotics and AI foundations.",
+      "Week 1": {
+        "content": "### Week 1 overview\n\nThis week introduces the course and sets up the required software.\n\n```python\nprint(\"Hello Ethronics\")\n```",
+        "assessment": "1. What problem are you most excited to solve with this course?\n2. Run the setup notebook and upload a screenshot."
+      }
+    }
+  }
+}
