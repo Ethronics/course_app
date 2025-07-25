@@ -18,7 +18,7 @@
       "Description": "Robotics and embedded systems for absolute beginners.",
       "Week 1": {
         "content": "### Week 1 overview\n\nThis week introduces the course and sets up the required software.\n\n```python\nprint(\"Hello Ethronics\")\n```",
-        "assessment": "1. What problem are you most excited to solve with this course?\n2. Run the setup notebook and upload a screenshot."
+        "assessment": "1. What problem are you most excited to solve with this course?\n2. Run the setup notebook and upload a screenshot.\n\n```cpp\ninclude \"bits/stdc++.h\"\n```"
       }
     },
     "PY201": {
