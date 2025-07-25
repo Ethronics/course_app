@@ -1,54 +1,38 @@
 import base64, json
 from pathlib import Path
 import streamlit as st
+import os
+from pymongo import MongoClient
+
+# Mongo connection
+MONGO_URI = st.secrets.get("mongo", {}).get("uri") or os.environ.get("MONGO_URI")
+client = MongoClient(MONGO_URI)
+db = client["ethronics"]
+col = db["courses"]              
+
+DOC_ID = "curriculum_v1"  
+
+def _ensure_doc():
+    if not col.find_one({"_id": DOC_ID}):
+        col.insert_one({"_id": DOC_ID, "data": {}})
+
+def load_data():
+    _ensure_doc()
+    return col.find_one({"_id": DOC_ID})["data"]
+
+def save_data(d: dict):
+    col.update_one({"_id": DOC_ID}, {"$set": {"data": d}}, upsert=True)
 
 
-ICON_FILE = Path("assets/ethronics_icon.png")   # <‑ your PNG
 st.set_page_config(
     page_title="Ethronics Summer 2025",
-    page_icon=str(ICON_FILE),   # Streamlit accepts a local image as the favicon
     layout="wide",
 )
 
-# helper to embed the PNG inside HTML
-def _icon_img_tag(height=40):
-    if ICON_FILE.exists():
-        b64 = base64.b64encode(ICON_FILE.read_bytes()).decode()
-        return f'<img src="data:image/png;base64,{b64}" height="{height}"/>'
-    return ""
 
 DATA_PATH = Path("data/courses.json")
 UTF8 = {"encoding": "utf-8"}
 
-
-def load_data():
-    if DATA_PATH.exists():
-        return json.loads(DATA_PATH.read_text(**UTF8))
-    st.error("data/courses.json not found"); st.stop()
-
-def save_data(d):
-    DATA_PATH.write_text(json.dumps(d, indent=2, ensure_ascii=False), **UTF8)
-
-# def ethronics_header():
-#     st.markdown(
-#         f"""
-#         <div style="
-#             background:linear-gradient(90deg,#004d7a,#008793,#00bf72,#a8eb12);
-#             padding:1.2rem 1rem;border-radius:0.4rem;margin-bottom:1.2rem;
-#             box-shadow:0 2px 10px rgba(0,0,0,0.1);
-#             display:flex;align-items:center;gap:0.8rem;">
-#             {_icon_img_tag()}
-#             <div>
-#                 <h1 style="color:white;margin:0;">Ethronics Summer 2025</h1>
-#                 <p style="color:white;margin:0;font-size:0.95rem;">
-#                   Pushing the boundaries of technology through
-#                   groundbreaking research and development
-#                 </p>
-#             </div>
-#         </div>
-#         """,
-#         unsafe_allow_html=True,
-#     )
 
 def ethronics_header():
     st.markdown(
@@ -154,5 +138,33 @@ else:
                     block.update(content=new_c, assessment=new_a)
                     save_data(data)
                     st.success("Saved"); st.rerun()
+
+            # ─────────────────────────────────────────────────────────────────────
+            # NEW‑WEEK CREATOR  – visible only to authorised editors
+            # ─────────────────────────────────────────────────────────────────────
+            if can_edit:
+                st.markdown("---")
+                st.markdown("### ➕ Add a new week")
+                new_num = st.number_input("Week number", min_value=1, step=1, format="%d")
+                new_key = f"Week {int(new_num)}"
+
+                if new_key in course_dict:
+                    st.info(f"{new_key} already exists.")
+                else:
+                    new_content = st.text_area("Content (Markdown)", key="new_content")
+                    new_assess = st.text_area("Assessment (Markdown)", key="new_assess")
+                    if st.button("Create week"):
+                        if new_content.strip() and new_assess.strip():
+                            course_dict[new_key] = {
+                                "content": new_content.strip(),
+                                "assessment": new_assess.strip(),
+                            }
+                            save_data(data)
+                            st.success(f"{new_key} added.")
+                            st.rerun()
+                        else:
+                            st.error("Both content and assessment are required.")
+            # ─────────────────────────────────────────────────────────────────────
+
 
     ethronics_footer()
