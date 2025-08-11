@@ -28,9 +28,6 @@ st.set_page_config(
     layout="wide",
 )
 
-DATA_PATH = Path("data/courses.json")
-UTF8 = {"encoding": "utf-8"}
-
 def ethronics_header():
     st.markdown(
         """
@@ -106,24 +103,24 @@ else:
     st.subheader(f"{course}  ·  {grp}")
     st.markdown(f"**Description**: {course_dict.get('Description','*(no description)*')}")
 
-    # ── Instructor auth (unique keys)
+    # ── Instructor auth (strict gate; editing only when unlocked)
     auth_key = f"auth_{grp}_{course}"
     if not st.session_state.get(auth_key, False):
         with st.expander("Instructor login to edit", expanded=False):
             pwd = st.text_input("Passkey", type="password", key=f"passkey_{grp}_{course}")
             if st.button("Unlock", key=f"unlock_{grp}_{course}"):
-                if pwd == f"{course}1234":
+                if pwd == f"{course}1234":   # CourseCode1234 pattern
                     st.session_state[auth_key] = True
                     st.success("Editing unlocked")
                     st.rerun()
                 else:
                     st.error("Incorrect passkey")
 
-    can_edit = st.session_state.get(auth_key, False)
+    can_edit = bool(st.session_state.get(auth_key, False))
 
-    # ── Weeks
+    # ── Weeks: show content always; show editors only if can_edit
     week_keys = [k for k in course_dict if k.lower().startswith("week")]
-    week_keys.sort(key=lambda w: int(w.split()[1]) if w.split()[1].isdigit() else 0)
+    week_keys.sort(key=lambda w: int(w.split()[1]) if len(w.split()) > 1 and w.split()[1].isdigit() else 0)
 
     for wk in week_keys:
         block = course_dict[wk]
@@ -136,7 +133,6 @@ else:
             st.markdown(block.get("assessment", ""))
 
             if can_edit:
-                # Use a form per week so state is clean and Save is atomic
                 with st.form(key=f"form_edit_{grp}_{course}_{wk}"):
                     new_c = st.text_area(
                         "Edit content",
@@ -150,18 +146,18 @@ else:
                         key=f"ta_assess_{grp}_{course}_{wk}",
                         height=140,
                     )
-                    saved = st.form_submit_button("Save changes", use_container_width=False)
+                    saved = st.form_submit_button("Save changes")
                     if saved:
                         block.update(content=new_c, assessment=new_a)
                         save_data(data)
                         st.success("Saved")
                         st.experimental_rerun()
 
-    # ── Add a new week (render ONCE per course, with unique keys)
+    # ── Add a new week (only when authenticated)
     if can_edit:
         st.markdown("---")
         st.markdown("### ➕ Add a new week")
-        # pick a default next week number
+
         existing_nums = []
         for wk in week_keys:
             parts = wk.split()
