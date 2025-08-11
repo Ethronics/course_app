@@ -145,7 +145,7 @@ else:
             if can_edit:
                 st.markdown("---")
                 st.markdown("### ➕ Add a new week")
-                new_num = st.number_input("Week number", min_value=1, step=1, format="%d", key=f"week_number_{grp}_{course}_{st.session_state.user_id}_new")
+                new_num = st.number_input("Week number", min_value=1, step=1, format="%d", key=f"week_number_{grp}_{course}_{len(course_dict)+1}")
                 new_key = f"Week {int(new_num)}"
 
                 if new_key in course_dict:
