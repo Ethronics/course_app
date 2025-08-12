@@ -151,7 +151,7 @@ else:
                         block.update(content=new_c, assessment=new_a)
                         save_data(data)
                         st.success("Saved")
-                        st.experimental_rerun()
+                        st.rerun()
 
     # ── Add a new week (only when authenticated)
     if can_edit:
@@ -188,7 +188,7 @@ else:
                     }
                     save_data(data)
                     st.success(f"{new_key} added.")
-                    st.experimental_rerun()
+                    st.rerun()
                 else:
                     st.error("Both content and assessment are required.")
 
