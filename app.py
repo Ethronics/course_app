@@ -37,7 +37,7 @@ def ethronics_header():
             box-shadow:0 2px 10px rgba(0,0,0,0.1);">
           <h1 style="color:white;margin:0;">Ethronics Summer 2025</h1>
           <p style="color:white;margin:0;font-size:0.95rem;">
-            Pushing the boundaries of technology through groundbreaking research and development
+            Pushing the boundaries of technology through groundbreaking research and development for us
           </p>
         </div>
         """,
